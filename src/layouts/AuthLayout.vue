@@ -1,0 +1,27 @@
+<template>
+  <div class="grey darken-1 empty-layout">
+    <router-view />
+  </div>
+</template>
+
+<script>
+import messages from "@/utils/messages";
+import localizeFilter from "@/filters/localize.filter";
+
+export default {
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    }
+  },
+  watch: {
+    error(fbError) {
+      if (messages[fbError.code]) {
+        this.$message(localizeFilter(messages[fbError.code]));
+      } else {
+        this.$message(fbError.message);
+      }
+    }
+  }
+};
+</script>
