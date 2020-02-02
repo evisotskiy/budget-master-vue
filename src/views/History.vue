@@ -21,7 +21,7 @@
         v-model="page"
         :page-count="pageCount"
         :click-handler="goToPage"
-        :prev-text="'Back' | localiz"
+        :prev-text="'Back' | localize"
         :next-text="'Forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
@@ -115,6 +115,14 @@ export default {
       });
     }
   },
-  components: { HistoryTable }
+  components: { HistoryTable },
+  watch: {
+    $route(to) {
+      if (!to.query.page) {
+        this.goToPage(1);
+        this.page = 1;
+      }
+    }
+  }
 };
 </script>
